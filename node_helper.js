@@ -108,7 +108,6 @@ module.exports = NodeHelper.create({
           state = response.body.state;
           item_value = state;
           item_only_view = true;
-          item_label = item_name;
         } else if (response.body.type.startsWith('Number') || (response.body.type.startsWith('Group') && response.body.groupType.startsWith('Number'))) {
           item_type = 'Number';
           state = response.body.state;
