@@ -22,7 +22,10 @@ module.exports = NodeHelper.create({
   updateItemValue: function(url, item_name) {
     const r = got.get(url + item_name, {responseType: 'json'})
       .then((response) => {
-        if (response.body.type.startsWith('Number') || (response.body.type.startsWith('Group') && response.body.groupType.startsWith('Number'))) {
+        if (response.body.type == 'Number:Temperature') {
+          state = response.body.state;
+          item_value = state;
+        } else if (response.body.type.startsWith('Number') || (response.body.type.startsWith('Group') && response.body.groupType.startsWith('Number'))) {
           state = response.body.state;
           pattern = response.body.stateDescription.pattern;
           item_value = this.convertState(state, pattern);
@@ -100,7 +103,12 @@ module.exports = NodeHelper.create({
         if (response.body.type == 'Rollershutter') {
           item_type = 'Rollershutter';
         }
-        if (response.body.type.startsWith('Number') || (response.body.type.startsWith('Group') && response.body.groupType.startsWith('Number'))) {
+        if (response.body.type == 'Number:Temperature') {
+          item_type = 'Temperature';
+          state = response.body.state;
+          item_value = state;
+          item_only_view = true;
+        } else if (response.body.type.startsWith('Number') || (response.body.type.startsWith('Group') && response.body.groupType.startsWith('Number'))) {
           item_type = 'Number';
           state = response.body.state;
           pattern = response.body.stateDescription.pattern;

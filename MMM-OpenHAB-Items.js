@@ -102,6 +102,10 @@ Module.register('MMM-OpenHAB-Items', {
 
       item_value = document.createElement("span")
 
+      if (item.item_type == 'Temperature') {
+        item_value.innerHTML = item.item_value;
+      }
+
       if (item.item_type == 'Number') {
          item_value.innerHTML = item.item_value;
       }
